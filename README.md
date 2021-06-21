@@ -20,10 +20,10 @@ Two feature extraction modules first extract features over an image. These featu
 
 ## Usage 
 
-Download the [Emotic dataset](https://drive.google.com/open?id=0B7sjGeF4f3FYQUVlZ3ZOai1ieEU) and [annotations](https://1drv.ms/u/s!AkYHbdGNmIVCgbYJxp1EtUplH6BhSw?e=VUP26u) and prepare the directory following the below structure: 
+### 0. Download the Emotic dataset as .png-files (Is this public?) and [annotations](https://1drv.ms/u/s!AkYHbdGNmIVCgbYJxp1EtUplH6BhSw?e=VUP26u) and prepare the directory following the below structure: 
 ```
-├── ...
-│   ├── emotic
+├── (ac-)emotic [root]
+│   ├── emotic 
 │   |    ├── ade20k
 │   |    ├── emodb_small
 │   |    ├── framesdb
@@ -32,33 +32,33 @@ Download the [Emotic dataset](https://drive.google.com/open?id=0B7sjGeF4f3FYQUVl
 │   |    ├── Annotations.mat
 ```
 
-1. To convert annotations from mat object to csv files and preprocess the data: 
+### 1. To convert annotations from mat object to csv files and preprocess the data: 
 
 ```
-> python mat2py.py --data_dir proj/data/emotic19 --generate_npy
+> python mat2py.py --data_dir . --generate_npy
 ```
 * data_dir: Path of the directory containing the emotic and annotations folder as described in the above data directory structure. 
 * generate_npy: Argument to specify to generate npy files (later used for training and testing) along with CSV files. If not passed only CSV files are generated. 
 
-2. To train the model: 
+### 2. To train the model: 
 
 ```
-> python main.py --mode train --data_path proj/data/emotic_pre --experiment_path proj/debug_exp
+> python main.py --mode train --data_path ./emotic_pre --experiment_path proj/debug_exp
 ```
 * mode: Mode to run the main file.
 * data_path: Path of the directory which contains the preprocessed data and CSV files generated in the first step.  
 * experiment_path: Path of the experiment directory. The directory will save the results, models and logs. 
 
-3. To test the model: 
+### 3. To test the model: 
 
 ```
-> python main.py --mode test --data_path proj/data/emotic_pre --experiment_path proj/debug_exp
+> python main.py --mode test --data_path ./emotic_pre --experiment_path proj/debug_exp
 ```
 * mode: Mode to run the main file.
 * data_path: Path of the directory which contains the preprocessed data and CSV files generated in the first step.  
 * experiment_path: Path of the experiment directory. Models stored in the the directory are used for testing. 
 
-4. To perform inference: 
+### 4. To perform inference: 
 
 ```
 > python main.py --mode inference --inference_file proj/debug_exp/inference_file.txt --experiment_path proj/debug_exp
